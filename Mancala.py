@@ -2,7 +2,7 @@ import random
 random.seed(109)
 
 class Mancala:
-    def __init__(self, pits_per_player=3, stones_per_pit = 2):
+    def __init__(self, pits_per_player=6, stones_per_pit = 4):
         """
         The constructor for the Mancala class defines several instance variables:
 
@@ -133,7 +133,7 @@ class Mancala:
         Finally, the function then switches the current player, allowing the other player to take their turn.
         """
         # commented this out because its overwhelming the jupyter nb output with turns
-        # print(f"Player {self.current_player} chose pit: {pit}")
+        print(f"Player {self.current_player} chose pit: {pit}")
         
         if self.winning_eval() == True:
             print("GAME OVER")
