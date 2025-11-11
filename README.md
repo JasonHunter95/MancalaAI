@@ -14,7 +14,7 @@ The player that moves first has a small advantage when the game is played random
 
 Here's output from running a 100,000 game simulation:
 
-```bash
+```text
 Number of ties: 6588
 Random Player 1 wins: 47936 times.
 Random Player 2 wins: 45476 times.
@@ -27,7 +27,7 @@ The players tied 6.587999999999999 % of the time.
 
 ## AI MiniMax Player Architecture
 
-Using the libraries from aima-python, we have implemented a version of the game with an AI player that uses minimax alpha-beta pruning to choose its moves down to a given depth. The utility function used is the difference between the number of stones in the two mancalas.
+Using the libraries from ```aima-python```, we have implemented a version of the game with an AI player that uses minimax alpha-beta pruning to choose its moves down to a given depth. The utility function used is the difference between the number of stones in the two mancalas.
 
 ## ```MancalaAI.py```
 
@@ -47,12 +47,12 @@ The class has versions of the required methods from ```games.py``` like ```actio
 ```actions(state)```:
 
 - Returns available moves for the current state
-- Calls get_valid_moves() from Mancala.py which checks which pits can be played
+- Calls ```get_valid_moves()``` from ```Mancala.py``` which checks which pits can be played
 - Returns and empty list if the game is over
 
 ```result(state, move)```:
 
-- This is our most important method because it generates the game tree
+- This is our **most important** method because it generates the game tree
 - It makes a deep copy of the current board state to avoid making any modifications to the original state
 - It calls ```mancala.play(move)``` to simulate a move and get the next state of the game
 - It returns a new ```GameState``` object with:
@@ -74,12 +74,14 @@ The class has versions of the required methods from ```games.py``` like ```actio
 
 ## Minimax Search Tree Visual
 
-```bash
+```text
                     Current State
                    /      |      \
                  Move1  Move2  Move3  ← MAX level (Player 1)
                  /  \    /  \    /  \
-               ... ... ... ... ... ... ← MIN level (Player 2)
+               ... ...  ... ... ... ... ← MIN level (Player 2)
+                \   /    \   /   \   /
+                  Eval1   Eval2   Eval3  ← Leaf nodes (Utility values)
 ```
 
 ### The Alpha-Beta Pruning Process
@@ -126,8 +128,33 @@ With deep copy:
 
 We have several simulations set up that vary in depth limit, and AI player strategy (minimax with and without alpha-beta pruning).
 
+Each simulation tracks wins, losses, and ties along with their percentages, as well as average moves to win, average moves played overall (in case of ties), average time per game, and average time per move for the AI player.
+
 - The first simulation uses a depth of 5 plies and a basic minimax search without alpha-beta pruning optimizations.
+
+  ```text
+  AI Player wins: 95 (95.0%)
+  Random Player wins: 3 (3.0%)
+  Ties: 2 (2.0%)
+  Average moves played: 29.2
+  Average moves played to win: 29.3
+  Average time per move for the AI player with basic minimax 5-ply depth: 0.239 seconds
+  Average time per game: 3.557 seconds
+  ```
+
 - The second simulation uses a depth of 5 plies and a more optimal minimax approach with alpha-beta pruning.
+
+  ```text
+  AI Player wins: 97 (97.0%)
+  Random Player wins: 2 (2.0%)
+  Ties: 1 (1.0%)
+  Average moves played: 28.8
+  Average moves played to win: 28.9
+  Average time per move for the AI player with alpha-beta pruning with 5-ply depth: 0.036 seconds
+  Average time per game: 0.529 seconds
+  ```
+
 - The third simulation uses a 10 plies with alpha-beta pruning.
 
-Each simulation tracks wins, losses, and ties along with their percentages, as well as average moves to win, average moves played overall (in case of ties), average time per game, and average time per move for the AI player.
+  ```text
+  ```

@@ -69,7 +69,7 @@ class MancalaAI(Game):
         """Display the board."""
         state.board.display_board()
             
-def get_alpha_beta_minimax_move(mancala_game, state, plie_lim=5):
+def get_alpha_beta_minimax_move(mancala_game, state, plie_lim):
     """Gets the best move using alpha-beta pruning with a given number of plies"""
     def cutoff_test(state, current_plies):
         return current_plies > plie_lim or mancala_game.terminal_test(state)
@@ -80,7 +80,7 @@ def get_alpha_beta_minimax_move(mancala_game, state, plie_lim=5):
     return alpha_beta_cutoff_search(state, mancala_game, d=plie_lim, 
                                     cutoff_test=cutoff_test, eval_fn=eval_fn)
     
-def get_basic_minimax_move(mancala_game, state, plie_lim=5):
+def get_basic_minimax_move(mancala_game, state, plie_lim):
     """Minimax with depth cutoff but no alpha-beta pruning."""
     player = mancala_game.to_move(state)
     
