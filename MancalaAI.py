@@ -1,11 +1,12 @@
 from games import Game, GameState, alpha_beta_cutoff_search
 import copy
 from Mancala import Mancala
+import numpy as np
 
 class MancalaAI(Game):
     """Wrapper to use our Mancala version with the games.py functions for AI players."""
     
-    def __init__(self, pits_per_player=6, stones_per_pit = 4):
+    def __init__(self, pits_per_player=6, stones_per_pit=4):
         self.pits_per_player = pits_per_player
         self.stones_per_pit = stones_per_pit
         # create an initial instance of the game
@@ -68,7 +69,7 @@ class MancalaAI(Game):
         """Display the board."""
         state.board.display_board()
             
-def get_minimax_move(mancala_game, state, plie_lim=4):
+def get_alpha_beta_minimax_move(mancala_game, state, plie_lim=5):
     """Gets the best move using alpha-beta pruning with a given number of plies"""
     def cutoff_test(state, current_plies):
         return current_plies > plie_lim or mancala_game.terminal_test(state)
@@ -78,3 +79,34 @@ def get_minimax_move(mancala_game, state, plie_lim=4):
 
     return alpha_beta_cutoff_search(state, mancala_game, d=plie_lim, 
                                     cutoff_test=cutoff_test, eval_fn=eval_fn)
+    
+def get_basic_minimax_move(mancala_game, state, plie_lim=5):
+    """Minimax with depth cutoff but no alpha-beta pruning."""
+    player = mancala_game.to_move(state)
+    
+    def max_value(state, depth):
+        if depth > plie_lim or mancala_game.terminal_test(state):
+            return mancala_game.utility(state, player)
+        v = -np.inf
+        for action in mancala_game.actions(state):
+            v = max(v, min_value(mancala_game.result(state, action), depth + 1))
+        return v
+    
+    def min_value(state, depth):
+        if depth > plie_lim or mancala_game.terminal_test(state):
+            return mancala_game.utility(state, player)
+        v = np.inf
+        for action in mancala_game.actions(state):
+            v = min(v, max_value(mancala_game.result(state, action), depth + 1))
+        return v
+    
+    # choose the action with the best minimax value
+    best_action = None
+    best_value = -np.inf
+    for action in mancala_game.actions(state):
+        value = min_value(mancala_game.result(state, action), 1)
+        if value > best_value:
+            best_value = value
+            best_action = action
+    
+    return best_action

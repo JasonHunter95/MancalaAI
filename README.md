@@ -121,3 +121,13 @@ With deep copy:
 - Each game state has its own independent board.
 - Moves can be simulated without side effects.
 - Branches remain isolated.
+
+### Running Simulations with Varying Depth Limits and Versions of the AI in ```project.ipynb```
+
+We have several simulations set up that vary in depth limit, and AI player strategy (minimax with and without alpha-beta pruning).
+
+- The first simulation uses a depth of 5 plies and a basic minimax search without alpha-beta pruning optimizations.
+- The second simulation uses a depth of 5 plies and a more optimal minimax approach with alpha-beta pruning.
+- The third simulation uses a 10 plies with alpha-beta pruning.
+
+Each simulation tracks wins, losses, and ties along with their percentages, as well as average moves to win, average moves played overall (in case of ties), average time per game, and average time per move for the AI player.
