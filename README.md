@@ -1,12 +1,19 @@
-# This repo has everything to do with our final project in CSCI 3202
+# CSCI 3202 Final Project - Mancala AI with Minimax Alpha-Beta Pruning
 
-## What we've got going on so far
+## Overview
 
 1. We have a version of mancala using the ruleset discussed in class and in the project notes.
     - Currently the print statements are commented out to avoid cluttering the notebook output and speeding up the sims.
-2. Mancala.py has all the game logic and it's class implementation.
-3. Currently the game is set up for two random players to play against each other with absolutely no reasoning or strategy, just randomness.
-4. The simulations are in the project notebook. The notebook prints all the required metrics/outputs that they want by Nov 5th.
+2. ```Mancala.py``` has all the game logic and it's class implementation.
+3. ```MancalaAI.py``` serves as a wrapper allowing us to use functions from ```aima-python``` in our mancala implementation.
+4. ```project.ipynb``` is where all the simulations are run and metrics are shown.
+5. The game can be run with a combination of different player types:
+
+- Random vs Random
+- Minimax AI vs Random
+- Minimax AI with Alpha-Beta Pruning vs Random
+
+In the simulations that use an AI player, the depth limit can also be changed.
 
 ## Simulations for 100,000 games
 
@@ -154,7 +161,15 @@ Each simulation tracks wins, losses, and ties along with their percentages, as w
   Average time per game: 0.529 seconds
   ```
 
-- The third simulation uses a 10 plies with alpha-beta pruning.
+- The third simulation uses a depth of 7 plies with alpha-beta pruning.
+  - The doc says that we should use a depth of 10, but it isn't feasible to be so I think 7 is good.
 
   ```text
+  AI Player wins: 97 (97.0%)
+  Random Player wins: 2 (2.0%)
+  Ties: 1 (1.0%)
+  Average moves played: 27.5
+  Average moves played to win: 27.6
+  Average time per move for the AI player with alpha-beta pruning and 7-ply depth: 0.269 seconds
+  Average time per game: 3.749 seconds
   ```

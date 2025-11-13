@@ -69,23 +69,23 @@ class MancalaAI(Game):
         """Display the board."""
         state.board.display_board()
             
-def get_alpha_beta_minimax_move(mancala_game, state, plie_lim):
+def get_alpha_beta_minimax_move(mancala_game, state, ply_lim):
     """Gets the best move using alpha-beta pruning with a given number of plies"""
     def cutoff_test(state, current_plies):
-        return current_plies > plie_lim or mancala_game.terminal_test(state)
+        return current_plies >= ply_lim or mancala_game.terminal_test(state)
     
     def eval_fn(state):
-        return mancala_game.utility(state, mancala_game.to_move(mancala_game.initial))
+        return mancala_game.utility(state, state.to_move)
 
-    return alpha_beta_cutoff_search(state, mancala_game, d=plie_lim, 
+    return alpha_beta_cutoff_search(state, mancala_game, d=ply_lim, 
                                     cutoff_test=cutoff_test, eval_fn=eval_fn)
     
-def get_basic_minimax_move(mancala_game, state, plie_lim):
+def get_basic_minimax_move(mancala_game, state, ply_lim):
     """Minimax with depth cutoff but no alpha-beta pruning."""
     player = mancala_game.to_move(state)
     
     def max_value(state, depth):
-        if depth > plie_lim or mancala_game.terminal_test(state):
+        if depth > ply_lim or mancala_game.terminal_test(state):
             return mancala_game.utility(state, player)
         v = -np.inf
         for action in mancala_game.actions(state):
@@ -93,7 +93,7 @@ def get_basic_minimax_move(mancala_game, state, plie_lim):
         return v
     
     def min_value(state, depth):
-        if depth > plie_lim or mancala_game.terminal_test(state):
+        if depth > ply_lim or mancala_game.terminal_test(state):
             return mancala_game.utility(state, player)
         v = np.inf
         for action in mancala_game.actions(state):
