@@ -2,7 +2,7 @@ import random
 random.seed(109)
 
 class Mancala:
-    def __init__(self, pits_per_player=3, stones_per_pit = 2):
+    def __init__(self, pits_per_player=6, stones_per_pit = 4):
         """
         The constructor for the Mancala class defines several instance variables:
 
