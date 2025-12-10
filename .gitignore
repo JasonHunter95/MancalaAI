@@ -1,2 +1,38 @@
-**__pycache__**
-**aima-python**
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.eggs/
+*.egg-info/
+*.egg
+dist/
+build/
+wheels/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Matplotlib
+*.png
+!ai_performance.png
+
+# Legacy AIMA
+aima-python/
